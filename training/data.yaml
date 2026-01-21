@@ -1,0 +1,10 @@
+# Path to the dataset root directory
+path: ./datasets
+
+# Folders for training and validation images
+train: images
+val: images  # For MVP, we use the same folder. In production, split this.
+
+# Classes
+names:
+  0: roof_sl  # We define a custom class ID 0 as "Sri Lankan Roof"

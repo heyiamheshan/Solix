@@ -1,0 +1,124 @@
+.report-export-section {
+  width: 100%;
+  max-width: 500px;
+  padding: 35px;
+  text-align: center;
+  animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.header-area {
+  margin-bottom: 25px;
+}
+
+.header-icon {
+  font-size: 4rem;
+  color: var(--solar-cyan);
+  margin-bottom: 15px;
+}
+
+.title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 8px 0;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  opacity: 0.7;
+  margin: 0;
+}
+
+.report-content-preview {
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.report-content-preview ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.report-content-preview li {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+  padding-left: 25px;
+  position: relative;
+}
+
+.report-content-preview li::before {
+  content: '•';
+  color: var(--solar-cyan);
+  position: absolute;
+  left: 0;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.export-button {
+  background: linear-gradient(45deg, var(--electric-blue) 0%, var(--solar-cyan) 100%);
+  color: var(--white);
+  border: none;
+  border-radius: var(--button-border-radius); /* Rounded corners */
+  padding: 18px 30px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transform: translateY(0);
+}
+
+.export-button:hover {
+  box-shadow: 0 8px 25px rgba(0, 255, 255, 0.6);
+  transform: translateY(-3px);
+  background: linear-gradient(45deg, var(--electric-blue) 0%, var(--solar-cyan) 100%);
+}
+
+.export-button.disabled {
+  background: linear-gradient(45deg, #4b6cb7 0%, #182848 100%); /* Muted gradient */
+  cursor: not-allowed;
+  opacity: 0.6;
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+.export-button.disabled:hover {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+.download-icon {
+  font-size: 1.3rem;
+}
+
+.microcopy {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  opacity: 0.6;
+  margin-top: 25px;
+  line-height: 1.5;
+}
+
+/* Optional: Solar pulse animation for generation in progress */
+.report-export-section.generating .export-button {
+  animation: solarPulse 1.5s infinite alternate;
+}
+
+@keyframes solarPulse {
+  from { box-shadow: 0 0 10px rgba(0, 255, 255, 0.4); }
+  to { box-shadow: 0 0 25px rgba(0, 255, 255, 0.8), 0 0 40px rgba(0, 255, 255, 0.4); }
+}

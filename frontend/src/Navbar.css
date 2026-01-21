@@ -1,0 +1,57 @@
+.navbar {
+  width: 100%;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  border-radius: 0; /* Navbar spans full width, no rounded corners */
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background: rgba(255, 255, 255, 0.1); /* Slightly less opaque for navbar */
+  backdrop-filter: blur(25px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.solix-logo {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--solar-cyan);
+  letter-spacing: 1px;
+}
+
+.navbar-tagline {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  opacity: 0.7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navbar-icons {
+  display: flex;
+  gap: 25px;
+}
+
+.nav-icon {
+  font-size: 1.4rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-icon:hover {
+  color: var(--solar-cyan);
+  transform: scale(1.1);
+}

@@ -1,0 +1,77 @@
+.insights-results-section {
+  width: 100%;
+  max-width: 1200px;
+  padding: 35px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  opacity: 0.8;
+  margin-bottom: 30px;
+}
+
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+}
+
+.insight-card {
+  background: rgba(0, 255, 255, 0.08); /* Subtle cyan tint for insight cards */
+  border-radius: var(--card-border-radius);
+  padding: 25px;
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.insight-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0, 255, 255, 0.3);
+}
+
+.insight-icon {
+  font-size: 2.5rem;
+  color: var(--solar-cyan);
+  margin-bottom: 15px;
+  filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.5)); /* Subtle glow */
+}
+
+.insight-card h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 8px 0;
+}
+
+.insight-card .numeric-value {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1;
+}
+
+.insight-card .insight-unit {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  opacity: 0.7;
+  margin-top: 5px;
+}
+
+.highlight {
+  color: var(--emerald-green) !important;
+}

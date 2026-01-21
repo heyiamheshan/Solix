@@ -1,5 +1,57 @@
-# Python virtual environments
+# =========================
+# OS / Editor
+# =========================
+desktop.ini
+.DS_Store
+Thumbs.db
+
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+
+# Virtual Environments
+.venv/
+venv/
 backend/.venv/
 backend/venv/
-venv/
-.venv/
+
+# =========================
+# Node / Frontend
+# =========================
+node_modules/
+frontend/node_modules/
+frontend/dist/
+dist/
+
+# =========================
+# ML / Models / Data
+# =========================
+*.pt
+*.onnx
+models/
+data/
+
+training/datasets/
+training/data/
+training/runs/
+training/solar_agent_outputs/
+
+# =========================
+# Generated / Output Files
+# =========================
+backend/static/*.pdf
+backend/static/*.jpg
+backend/static/*.png
+
+# =========================
+# Environment
+# =========================
+.env
+
+# =========================
+# IDE
+# =========================
+.vscode/
+.idea/
