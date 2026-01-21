@@ -7,6 +7,7 @@ import InsightsResultsSection from './InsightsResultsSection';
 import VisualAnalysisPanel from './VisualAnalysisPanel';
 import ReportExportSection from './ReportExportSection';
 import SettingsPanel from './SettingsPanel';
+import ChatBot from './ChatBot'; // <--- Import
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -28,8 +29,6 @@ function App() {
     localStorage.setItem('solix-theme', theme);
   }, [theme]);
 
-  // --- UPDATED ANALYZE FUNCTION ---
-  // Now accepts financial inputs (bill, loanTerm, loanRate) from the child component
   const handleAnalyze = async ({ district, lat, lon, bill, loanTerm, loanRate, selectedFile, connectionPhase }) => {
     setLoading(true);
     setError("");
@@ -40,15 +39,11 @@ function App() {
     formData.append('district', district);
     formData.append('lat', lat);
     formData.append('lon', lon);
-    formData.append('bill', bill || 0);
-    
-    // Financial Inputs (New Backend Requirements)
-    // Default to 0 or safe defaults if undefined
     formData.append('bill', bill || 0); 
     formData.append('loan_years', loanTerm || 5);
     formData.append('loan_rate', loanRate || 11.5);
     formData.append('phase', connectionPhase || "Single");
-    // Image Handling
+
     if (selectedFile) {
       formData.append('file', selectedFile);
       setOriginalImage(URL.createObjectURL(selectedFile));
@@ -57,31 +52,20 @@ function App() {
     }
 
     try {
-      // Connect to Backend
       const response = await axios.post('http://127.0.0.1:8000/api/analyze/full', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+        headers: { 'Content-Type': 'multipart/form-data' }
       });
       setResult(response.data);
       setIsAnalysisComplete(true);
     } catch (err) {
       console.error("Analysis failed:", err);
       setError("Analysis failed. Is the backend server running?");
-      setIsAnalysisComplete(false);
-      setResult(null);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleThemeChange = (newTheme) => {
-    setTheme(newTheme);
-  };
-
   return (
-
-    
     <div className="App">
       <Navbar onSettingsClick={() => setIsSettingsOpen(true)} />
       
@@ -89,7 +73,7 @@ function App() {
         isOpen={isSettingsOpen} 
         onClose={() => setIsSettingsOpen(false)} 
         theme={theme} 
-        onThemeChange={handleThemeChange}
+        onThemeChange={(newTheme) => setTheme(newTheme)}
       />
 
       <div className="container">
@@ -98,10 +82,6 @@ function App() {
           <p>Intelligent insights for rooftop energy and climate-driven decisions.</p>
         </div>
 
-        {/* NOTE: Ensure your InputAnalysisPanel component passes 
-            { district, lat, lon, bill, loanTerm, loanRate, selectedFile } 
-            when it calls onAnalyze.
-        */}
         <InputAnalysisPanel onAnalyze={handleAnalyze} loading={loading} />
         
         {error && <p className="error-message" style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
@@ -109,13 +89,11 @@ function App() {
         {result && (
           <div className="results-dashboard">
             <InsightsResultsSection result={result} />
-            
             <VisualAnalysisPanel 
               originalImage={originalImage} 
               annotatedImage={result.roof_analysis.annotated_image} 
               detectionCount={result.roof_analysis.detection_count}
             />
-            
             <ReportExportSection
               isAnalysisComplete={isAnalysisComplete}
               pdfUrl={result.pdf_url}
@@ -124,6 +102,10 @@ function App() {
           </div>
         )}
       </div>
+
+      {/* --- CHATBOT COMPONENT ADDED HERE --- */}
+      <ChatBot />
+      
     </div>
   );
 }

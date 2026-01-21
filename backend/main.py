@@ -1,10 +1,12 @@
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 from services.cv_engine import SolarVision
 from services.solar_engine import SolarCalculator
 from services.pdf_engine import generate_solar_pdf
 from services.image_fetcher import fetch_satellite_image
+from services.rag_engine import SolarRAG  # <--- NEW: Import the RAG Engine
 import base64
 import os
 
@@ -21,8 +23,38 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# --- 1. INITIALIZE ENGINES ---
 vision_engine = SolarVision()
 solar_engine = SolarCalculator()
+
+# Initialize RAG Engine (with safety check)
+try:
+    rag_engine = SolarRAG()
+    print("✅ RAG Engine Loaded Successfully")
+except Exception as e:
+    print(f"❌ Failed to load RAG Engine: {e}")
+    rag_engine = None
+
+# --- 2. DATA MODELS ---
+class ChatRequest(BaseModel):
+    message: str
+    history: list = []  # Frontend sends history, but RAG focuses on the current question
+
+# --- 3. ENDPOINTS ---
+
+@app.post("/api/chat")
+async def chat_endpoint(request: ChatRequest):
+    """
+    Smart Chatbot Endpoint:
+    Receives user message -> Searches PDFs/Websites -> Returns Fact-Checked Answer
+    """
+    if not rag_engine:
+        return {"reply": "System Error: The AI Knowledge base is not loaded. Please check backend console."}
+    
+    # Get answer from RAG
+    answer = rag_engine.get_answer(request.message)
+    
+    return {"reply": answer}
 
 @app.post("/api/analyze/full")
 async def analyze_full_project(
@@ -35,7 +67,7 @@ async def analyze_full_project(
     phase: str = Form("Single"),
     file: UploadFile = File(None)
 ):
-    # 1. GET THE IMAGE
+    # A. GET THE IMAGE
     if file:
         image_data = await file.read()
     else:
@@ -44,7 +76,7 @@ async def analyze_full_project(
         if not image_data:
             return {"status": "error", "message": "Could not fetch satellite image for this location."}
 
-    # 2. CV Analysis
+    # B. CV Analysis
     cv_results = vision_engine.analyze_image(image_data)
     
     # Save image for PDF
@@ -53,10 +85,10 @@ async def analyze_full_project(
     with open(temp_img_path, "wb") as f:
         f.write(base64.b64decode(cv_results['annotated_image']))
 
-    # 3. Solar & Financial Math
+    # C. Solar & Financial Math
     detected_area = sum([obj['estimated_m2'] for obj in cv_results['objects']])
     
-    # --- LOGIC FIX: Fallback & Flagging ---
+    # Fallback Logic
     if detected_area > 0:
         total_area_m2 = detected_area
         is_estimated = False
@@ -75,7 +107,7 @@ async def analyze_full_project(
         connection_type=phase
     )
     
-    # 4. Generate PDF
+    # D. Generate PDF
     pdf_data = {
         "district": district,
         "roof_area": round(total_area_m2, 2),
@@ -93,16 +125,16 @@ async def analyze_full_project(
     pdf_filename = f"Solar_Report_{district}.pdf"
     generate_solar_pdf(pdf_data, temp_img_path, pdf_filename)
 
-    # --- CRITICAL FIX: Merge the calculated area into the response ---
+    # E. Construct Final Response
     final_roof_analysis = {
-        **cv_results,                            # Include the original detection objects
-        "total_area_m2": round(total_area_m2, 2), # <--- THIS was missing!
-        "is_estimated": is_estimated              # <--- THIS was missing!
+        **cv_results,
+        "total_area_m2": round(total_area_m2, 2),
+        "is_estimated": is_estimated
     }
 
     return {
         "status": "success",
-        "roof_analysis": final_roof_analysis,     # Send the MERGED dictionary
+        "roof_analysis": final_roof_analysis,
         "financial_report": financials,
         "pdf_url": f"http://127.0.0.1:8000/static/{pdf_filename}"
     }
