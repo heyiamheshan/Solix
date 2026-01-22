@@ -4,12 +4,13 @@ from langchain_chroma import Chroma
 from langchain_community.embeddings import HuggingFaceEmbeddings # <--- Use Community version (More stable)
 # ------------------------
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain.chains import create_retrieval_chain
-from langchain.chains.combine_documents import create_stuff_documents_chain
+from langchain_classic.chains import create_retrieval_chain
+from langchain_classic.chains.combine_documents import create_stuff_documents_chain
 from langchain_core.prompts import ChatPromptTemplate
 
+
 # --- CONFIGURATION ---
-GOOGLE_API_KEY = "AIzaSyD01ZLcgyf9fs_eCcN5YAb2TfyA3eUWB-Q"  # <--- PASTE YOUR KEY HERE (Still needed for the Chat Answer)
+GOOGLE_API_KEY = "AIzaSyAvACWDsbRxJgsLTCaRNLvUdE-s6ltbxkc"  # <--- PASTE YOUR KEY HERE (Still needed for the Chat Answer)
 DB_PATH = "chroma_db"
 
 class SolarRAG:
@@ -30,7 +31,6 @@ class SolarRAG:
             raise Exception("❌ Database not found! Run build_memory.py first.")
 
         # 3. Setup the LLM (Gemini is still used to WRITE the answer)
-       # 3. Setup the LLM
         self.llm = ChatGoogleGenerativeAI(
             model="gemini-flash-latest",  # <--- TRY THIS EXACT NAME
             google_api_key=GOOGLE_API_KEY,
