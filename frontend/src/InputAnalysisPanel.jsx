@@ -9,10 +9,8 @@ const InputAnalysisPanel = ({ onAnalyze, loading }) => {
   const [lon, setLon] = useState("79.8612");
   const [selectedFile, setSelectedFile] = useState(null);
   const [isAutoDetecting, setIsAutoDetecting] = useState(false);
-  
-  // --- NEW VALIDATION STATES ---
   const [validationError, setValidationError] = useState("");
-  const [isLocationConfirmed, setIsLocationConfirmed] = useState(false); // Tracks if user touched map
+  const [isLocationConfirmed, setIsLocationConfirmed] = useState(false);
 
   const DISTRICTS = [
     "Colombo", "Gampaha", "Kalutara", "Galle", "Matara", "Hambantota",
@@ -22,37 +20,17 @@ const InputAnalysisPanel = ({ onAnalyze, loading }) => {
     "Kegalle", "Ratnapura", "Badulla", "Monaragala"
   ];
 
-  // --- DISTRICT DETECTOR ---
   const detectDistrict = async (latitude, longitude) => {
     setIsAutoDetecting(true);
     try {
-      const response = await fetch(
-        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
-      );
+      const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
       const data = await response.json();
-
       if (data && data.address) {
-        const addressValues = [
-          data.address.state_district, data.address.county,         
-          data.address.city, data.address.town,
-          data.address.state, data.address.region
-        ].filter(Boolean); 
-
-        let found = null;
-        for (let d of DISTRICTS) {
-            const isMatch = addressValues.some(val => 
-                val.toLowerCase().includes(d.toLowerCase())
-            );
-            if (isMatch) {
-                found = d;
-                break;
-            }
-        }
+        const addressValues = [data.address.state_district, data.address.county, data.address.city, data.address.town].filter(Boolean);
+        let found = DISTRICTS.find(d => addressValues.some(val => val.toLowerCase().includes(d.toLowerCase())));
         if (found) setDistrict(found);
       }
-    } catch (error) {
-      console.error("Dist Detect Error:", error);
-    }
+    } catch (error) { console.error(error); }
     setIsAutoDetecting(false);
   };
 
@@ -60,136 +38,103 @@ const InputAnalysisPanel = ({ onAnalyze, loading }) => {
     setLat(newLat);
     setLon(newLon);
     detectDistrict(newLat, newLon);
-    
-    // ✅ Mark location as confirmed whenever user interacts with map
-    setIsLocationConfirmed(true); 
-    setValidationError(""); // Clear errors if any
+    setIsLocationConfirmed(true);
+    setValidationError("");
   }, []);
 
-  // --- SUBMIT HANDLER ---
   const handleSubmit = () => {
     setValidationError("");
-
-    // 1. CHECK LOCATION FIRST
     if (!isLocationConfirmed) {
-        setValidationError("⚠️ Please search or pin your exact location on the map.");
-        // Scroll to top to show the error near the map
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setValidationError("⚠️ Please confirm your location on the map.");
         return;
     }
-
-    // 2. CHECK BILL
     const cleanBill = bill.replace(/[^0-9.]/g, ''); 
-
     if (!cleanBill || parseFloat(cleanBill) <= 0) {
-        setValidationError("⚠️ Please enter a valid monthly bill amount.");
+        setValidationError("⚠️ Please enter a valid monthly bill.");
         return;
     }
-    
-    if (parseFloat(cleanBill) < 500) {
-        setValidationError("⚠️ Bill amount seems too low (LKR).");
-        return;
-    }
-
-    onAnalyze({
-      district,
-      lat,
-      lon,
-      bill: cleanBill,
-      connectionPhase: phase,
-      selectedFile
-    });
+    onAnalyze({ district, lat, lon, bill: cleanBill, connectionPhase: phase, selectedFile });
   };
 
   return (
-    <div className="input-panel card" style={{ position: 'relative', zIndex: 1, paddingBottom: '30px' }}>
-      <h3>🚀 Project Setup</h3>
+    <div className="input-panel card">
+      <h3 style={{fontFamily:'Outfit', fontSize:'1.5rem', marginBottom:'20px', color:'white'}}>
+        🚀 Project Configuration
+      </h3>
       
-      {/* GLOBAL ERROR MESSAGE (Top) */}
+      {/* ERROR ALERT */}
       {validationError && (
           <div style={{ 
-              background: '#ffebee', color: '#c62828', padding: '10px', 
-              borderRadius: '6px', marginBottom: '15px', border: '1px solid #ef9a9a',
-              display: 'flex', alignItems: 'center', fontWeight: 'bold'
+              background: 'rgba(220, 38, 38, 0.2)', color: '#fca5a5', padding: '12px', 
+              borderRadius: '8px', marginBottom: '20px', border: '1px solid #ef4444', fontWeight: '500'
           }}>
              🛑 {validationError}
           </div>
       )}
       
-      {/* MAP SECTION */}
-      <div style={{ position: 'relative', zIndex: 1, marginBottom: '20px' }}>
-        <LocationSelector 
-            onLocationSelect={handleLocationSelect} 
-            initialLat={lat} 
-            initialLon={lon} 
-        />
-        {/* Helper text showing status */}
-        <p style={{ fontSize: '0.8rem', marginTop: '5px', textAlign: 'right', color: isLocationConfirmed ? '#27ae60' : '#e67e22', fontWeight: 'bold' }}>
-            {isLocationConfirmed ? "✅ Location Confirmed" : "Please confirm location above ☝️"}
-        </p>
+      {/* MAP WRAPPER */}
+      <div style={{ borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)', marginBottom: '20px' }}>
+        <LocationSelector onLocationSelect={handleLocationSelect} initialLat={lat} initialLon={lon} />
+      </div>
+      
+      <div style={{ textAlign:'right', marginBottom:'20px' }}>
+        <span style={{ 
+            background: isLocationConfirmed ? 'rgba(0, 230, 118, 0.1)' : 'rgba(245, 158, 11, 0.1)', 
+            color: isLocationConfirmed ? '#00e676' : '#fbbf24',
+            padding: '6px 12px', borderRadius: '20px', fontSize: '0.85rem', fontWeight: '600'
+        }}>
+            {isLocationConfirmed ? "✅ Location Locked" : "📍 Pin Location Required"}
+        </span>
       </div>
 
       <div className="grid-2">
         <div className="form-group">
-          <label>District {isAutoDetecting && <span style={{color:'#27ae60'}}>✨ Detecting...</span>}</label>
-          <select 
-            value={district} 
-            onChange={(e) => setDistrict(e.target.value)}
-            disabled={isAutoDetecting}
-          >
+          <label>Target District {isAutoDetecting && <span className="text-neon">✨ Scanning...</span>}</label>
+          <select value={district} onChange={(e) => setDistrict(e.target.value)} disabled={isAutoDetecting}>
             {DISTRICTS.map(d => <option key={d} value={d}>{d}</option>)}
           </select>
         </div>
 
         <div className="form-group">
-          <label>Connection Phase</label>
+          <label>Connection Type</label>
           <select value={phase} onChange={(e) => setPhase(e.target.value)}>
             <option value="Single">Single Phase (30A)</option>
-            <option value="Three">Three Phase (30A/60A)</option>
+            <option value="Three">Three Phase (60A)</option>
           </select>
         </div>
       </div>
 
-      {/* --- BILL INPUT --- */}
-      <div style={{ 
-          marginTop: '25px', padding: '15px', background: '#f8f9fa', 
-          borderRadius: '8px', border: '1px solid #e9ecef', position: 'relative', zIndex: 999 
-      }}>
-        <div className="form-group" style={{ marginBottom: 0 }}>
-          <label style={{ color: '#333', fontWeight: 'bold' }}>Monthly Bill (LKR) <span style={{color:'red'}}>*</span></label>
-          <input 
-            type="text"
-            inputMode="numeric"
-            placeholder="e.g. 15000" 
-            value={bill} 
-            onChange={(e) => {
-                setBill(e.target.value);
-                setValidationError(""); // Clear error on type
-            }} 
-            style={{
-                width: '100%', padding: '12px', fontSize: '16px',
-                color: '#000000', backgroundColor: '#ffffff',
-                border: '2px solid #3498db', borderRadius: '6px', marginTop: '8px', pointerEvents: 'auto'
-            }}
-          />
-        </div>
+      {/* BILL INPUT */}
+      <div style={{ marginTop: '20px', marginBottom: '20px' }}>
+        <label>Monthly Bill (LKR) <span className="text-neon">*</span></label>
+        <input 
+          type="text" inputMode="numeric" placeholder="e.g. 15000" 
+          value={bill} onChange={(e) => { setBill(e.target.value); setValidationError(""); }} 
+          style={{ fontSize: '1.2rem', fontWeight: 'bold' }}
+        />
       </div>
 
       <div className="coordinates-display" style={{ 
-          marginTop: '20px', background: '#f8f9fa', padding: '10px', borderRadius: '5px', 
-          fontSize: '0.85rem', color: '#555', border: '1px dashed #ccc' 
+          marginBottom: '15px', padding: '10px', borderRadius: '5px', fontSize: '0.85rem' 
       }}>
-         <strong>Selected GPS:</strong> {lat}, {lon}
+         <strong>GPS:</strong> {lat}, {lon}
       </div>
 
-      <div className="form-group" style={{ marginTop: '15px' }}>
-        <label>Upload Roof Image (Optional)</label>
-        <input type="file" onChange={(e) => setSelectedFile(e.target.files[0])} accept="image/*" />
-        <small style={{display:'block', color:'#888'}}>If skipped, we will fetch satellite image automatically.</small>
+      <div className="form-group">
+        <label>Roof Image (Optional)</label>
+        <div style={{ position: 'relative', overflow: 'hidden', display: 'inline-block', width: '100%' }}>
+            <input 
+                type="file" 
+                onChange={(e) => setSelectedFile(e.target.files[0])} 
+                accept="image/*"
+                style={{ padding: '10px', background: 'rgba(255,255,255,0.05)' }} 
+            />
+        </div>
+        <small style={{display:'block', color:'#9ca3af', marginTop:'5px'}}>No image? We'll fetch satellite data automatically.</small>
       </div>
 
-      <button className="btn-primary" onClick={handleSubmit} disabled={loading} style={{ marginTop: '20px' }}>
-        {loading ? "Analyzing..." : "Analyze Project"}
+      <button className="btn-primary" onClick={handleSubmit} disabled={loading} style={{ marginTop: '10px' }}>
+        {loading ? "⚙️ Processing AI Models..." : "Run Solar Analysis"}
       </button>
     </div>
   );

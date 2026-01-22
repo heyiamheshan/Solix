@@ -170,3 +170,9 @@
     outline: none;
 }
 .chat-send-btn { position: absolute; right: 10px; color: #2dd4bf; background: none; border: none; cursor: pointer; }
+
+/* src/ChatBot.css */
+.chatbot-container {
+    /* ... existing styles ... */
+    z-index: 9999 !important; /* Forces it to sit on top of the Home Page */
+  }
