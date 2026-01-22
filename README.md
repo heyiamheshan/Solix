@@ -103,12 +103,6 @@ npm run dev
 ```
 App will launch at http://localhost:5173<img width="1439" height="742" alt="Screenshot 2026-01-22 223355" src="https://github.com/user-attachments/assets/d9d4c96a-cb5e-444a-99a7-d7fa5f83c1b1" />
 
-Team Members
-Heshan,
-Rashmika,
-Hiruni,
-Pasindu
-
 
 
 
