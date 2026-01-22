@@ -7,7 +7,7 @@ import InsightsResultsSection from './InsightsResultsSection';
 import VisualAnalysisPanel from './VisualAnalysisPanel';
 import ReportExportSection from './ReportExportSection';
 import SettingsPanel from './SettingsPanel';
-import ChatBot from './ChatBot'; // <--- Import
+import ChatBot from './ChatBot';
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -23,7 +23,6 @@ function App() {
     return savedTheme || 'dark';
   });
 
-  // Apply theme
   useEffect(() => {
     document.body.className = theme + '-theme';
     localStorage.setItem('solix-theme', theme);
@@ -52,6 +51,7 @@ function App() {
     }
 
     try {
+      // Ensure your backend is running on 8000
       const response = await axios.post('http://127.0.0.1:8000/api/analyze/full', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
@@ -59,7 +59,9 @@ function App() {
       setIsAnalysisComplete(true);
     } catch (err) {
       console.error("Analysis failed:", err);
-      setError("Analysis failed. Is the backend server running?");
+      // Better error message
+      const msg = err.response?.data?.detail || "Analysis failed. Ensure Backend is running.";
+      setError(msg);
     } finally {
       setLoading(false);
     }
@@ -84,7 +86,14 @@ function App() {
 
         <InputAnalysisPanel onAnalyze={handleAnalyze} loading={loading} />
         
-        {error && <p className="error-message" style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
+        {error && (
+          <div className="error-message" style={{ 
+            color: '#721c24', backgroundColor: '#f8d7da', padding: '10px', 
+            borderRadius: '5px', marginTop: '10px', border: '1px solid #f5c6cb' 
+          }}>
+            ❌ {error}
+          </div>
+        )}
 
         {result && (
           <div className="results-dashboard">
@@ -103,7 +112,6 @@ function App() {
         )}
       </div>
 
-      {/* --- CHATBOT COMPONENT ADDED HERE --- */}
       <ChatBot />
       
     </div>

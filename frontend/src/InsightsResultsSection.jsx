@@ -4,17 +4,14 @@ import { FaRulerCombined, FaSolarPanel, FaBolt, FaMoneyBillWave, FaClock } from 
 const InsightsResultsSection = ({ result }) => {
   const { financial_report, roof_analysis } = result;
 
-  // 1. Get the Area (Handling the fallback)
-  // If backend sends nothing, default to 0
-const areaDisplay = roof_analysis.total_area_m2 || 0;
+  const areaDisplay = roof_analysis.total_area_m2 || 0;
   const isEstimated = roof_analysis.is_estimated;
+  // NEW: Get the reason why it was estimated (e.g. "Cloudy Image")
+  const estimationReason = roof_analysis.estimation_reason || "Standard Analysis";
 
-  // 2. Calculate Annual Energy (since backend gives Monthly)
   const monthlyGen = financial_report.monthly_generation_kwh;
   const annualGen = Math.round(monthlyGen * 12);
- 
 
-  // 3. Styling Logic for Warnings
   const isWarning = financial_report.note.includes("Warning");
   const noteColor = isWarning ? '#856404' : '#155724';
   const noteBg = isWarning ? '#fff3cd' : '#d4edda';
@@ -35,13 +32,8 @@ const areaDisplay = roof_analysis.total_area_m2 || 0;
            </div>
            
            <div className="ai-note" style={{
-               backgroundColor: noteBg,
-               color: noteColor,
-               borderLeft: `4px solid ${noteBorder}`,
-               padding: '12px',
-               borderRadius: '4px',
-               marginTop: '15px',
-               fontSize: '0.95rem'
+               backgroundColor: noteBg, color: noteColor, borderLeft: `4px solid ${noteBorder}`,
+               padding: '12px', borderRadius: '4px', marginTop: '15px', fontSize: '0.95rem'
            }}>
              <strong>{isWarning ? "⚠️ Analysis Note:" : "✅ Analysis Note:"}</strong> {financial_report.note}
            </div>
@@ -51,7 +43,7 @@ const areaDisplay = roof_analysis.total_area_m2 || 0;
       {/* --- GRID STATS --- */}
       <div className="result-grid">
         
-        {/* 1. ROOF USABLE AREA (Fixed) */}
+        {/* 1. ROOF USABLE AREA */}
         <div className="stat-card">
           <div className="icon-box" style={{background: '#e8f6f3', color: '#1abc9c'}}>
             <FaRulerCombined />
@@ -59,15 +51,16 @@ const areaDisplay = roof_analysis.total_area_m2 || 0;
           <div className="stat-info">
             <label>Usable Roof Area</label>
             <p className="stat-value">{areaDisplay} m²</p>
+            {/* Display Estimation Reason if Estimated */}
             {isEstimated && (
-              <small style={{color: '#d35400', fontWeight: 'bold', fontSize: '0.7rem'}}>
-                (Estimated - Low Visibility)
+              <small style={{color: '#d35400', fontWeight: 'bold', fontSize: '0.7rem', display:'block', lineHeight:'1.2'}}>
+                 ⚠️ {estimationReason}
               </small>
             )}
           </div>
         </div>
 
-        {/* 2. ANNUAL ENERGY OUTPUT (Fixed) */}
+        {/* 2. ANNUAL ENERGY OUTPUT */}
         <div className="stat-card">
           <div className="icon-box" style={{background: '#eaf2f8', color: '#3498db'}}>
             <FaBolt />
@@ -107,11 +100,8 @@ const areaDisplay = roof_analysis.total_area_m2 || 0;
 
       {/* --- FINANCIAL SUMMARY FOOTER --- */}
       <div className="financial-summary" style={{
-          marginTop: '25px', 
-          padding: '20px', 
-          background: '#f8f9fa', 
-          borderRadius: '10px',
-          border: '1px solid #eee'
+          marginTop: '25px', padding: '20px', background: '#f8f9fa', 
+          borderRadius: '10px', border: '1px solid #eee'
       }}>
          <h4 style={{margin: '0 0 15px 0', color: '#2c3e50'}}>💰 Financial Projection</h4>
          
@@ -126,12 +116,8 @@ const areaDisplay = roof_analysis.total_area_m2 || 0;
          </div>
          
          <div style={{
-             marginTop: '15px', 
-             paddingTop: '15px', 
-             borderTop: '2px dashed #ddd', 
-             display: 'flex', 
-             justifyContent: 'space-between',
-             fontSize: '1.1rem'
+             marginTop: '15px', paddingTop: '15px', borderTop: '2px dashed #ddd', 
+             display: 'flex', justifyContent: 'space-between', fontSize: '1.1rem'
          }}>
             <span>Net Monthly Impact:</span>
             <strong style={{color: financial_report.net_monthly_result > 0 ? '#27ae60' : '#c0392b'}}>
@@ -140,7 +126,6 @@ const areaDisplay = roof_analysis.total_area_m2 || 0;
             </strong>
          </div>
       </div>
-
     </div>
   );
 };
