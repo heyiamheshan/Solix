@@ -65,3 +65,50 @@ Unlike simple calculators, SOLIX uses **Computer Vision (YOLOv8)** to analyze th
 git lfs install
 git clone [https://github.com/YOUR_USERNAME/solix.git](https://github.com/YOUR_USERNAME/solix.git)
 cd solix
+```
+
+2. Backend Setup
+
+Navigate to the backend folder and install Python dependencies.
+```
+cd backend
+python -m venv venv
+# Windows
+.\venv\Scripts\activate
+# Mac/Linux
+source venv/bin/activate
+
+pip install -r requirements.txt
+```
+Configuration: Create a .env file in the backend folder and add your API key:
+```
+GOOGLE_API_KEY=your_gemini_api_key_here
+```
+Initialize AI Memory: Run this script to build the vector database from your PDFs/Data.
+```
+python build_memory.py
+```
+Run Server:
+```
+python -m uvicorn main:app --reload
+```
+Server will start at http://127.0.0.1:8000
+
+3. Frontend Setup
+Open a new terminal and navigate to the frontend folder.
+```
+cd frontend
+npm install
+npm run dev
+```
+App will launch at http://localhost:5173<img width="1439" height="742" alt="Screenshot 2026-01-22 223355" src="https://github.com/user-attachments/assets/d9d4c96a-cb5e-444a-99a7-d7fa5f83c1b1" />
+
+Team Members
+Heshan
+Rashmika
+Hiruni
+Pasindu
+
+
+
+
