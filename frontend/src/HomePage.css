@@ -1,0 +1,412 @@
+/* src/HomePage.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Outfit:wght@500;700;800&display=swap');
+
+:root {
+  --primary-green: #00c853; /* Vibrant Solar Green */
+  --primary-dark: #1b5e20;
+  --solar-gold: #ffd700;
+  --dark-bg: #0f172a;
+  --glass-bg: rgba(255, 255, 255, 0.95);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.08);
+  --shadow-hover: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f8fafc;
+}
+
+.home-container {
+  font-family: 'Inter', sans-serif;
+  color: #1e293b;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* --- NAV BAR (Overlay) --- */
+.navbar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+
+.logo-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: white;
+  letter-spacing: -1px;
+}
+
+.nav-links a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  margin-left: 30px;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: var(--solar-gold);
+}
+
+/* --- 1. HERO SECTION (Cinema Style) --- */
+.hero-section {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  background: black; /* Fallback */
+  overflow: hidden;
+}
+
+/* Video/Image Background */
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.6) 0%, rgba(15, 23, 42, 0.9) 100%),
+              url('https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=90');
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+  animation: zoomSlow 20s infinite alternate;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  padding: 20px;
+  animation: fadeInUp 1s ease-out;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--solar-gold);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hero-content h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 4.5rem;
+  font-weight: 800;
+  margin-bottom: 25px;
+  line-height: 1.1;
+  background: linear-gradient(to right, #ffffff, #e2e8f0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-content p {
+  font-size: 1.35rem;
+  line-height: 1.6;
+  margin-bottom: 50px;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 750px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Modern Buttons */
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.btn-glow {
+  background: var(--primary-green);
+  color: white;
+  padding: 18px 40px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(0, 200, 83, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-glow:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 30px rgba(0, 200, 83, 0.6);
+  background: #00e676;
+}
+
+.btn-glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 18px 40px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-glass:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+}
+
+/* --- 2. SECTIONS (General) --- */
+.section {
+  padding: 100px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-header h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 3rem;
+  color: var(--dark-bg);
+  margin-bottom: 15px;
+}
+
+.section-header p {
+  font-size: 1.2rem;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* --- 3. FEATURES (Glass Cards) --- */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
+}
+
+.feature-card {
+  background: white;
+  padding: 40px;
+  border-radius: 24px;
+  border: 1px solid #f1f5f9;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-hover);
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, var(--primary-green), var(--solar-gold));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.feature-card:hover::before {
+  opacity: 1;
+}
+
+.icon-box {
+  width: 70px;
+  height: 70px;
+  background: #f0fdf4;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 25px;
+  color: var(--primary-green);
+  font-size: 2rem;
+}
+
+.feature-card h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.feature-card p {
+  color: #64748b;
+  line-height: 1.6;
+}
+
+/* --- 4. AI SHOWCASE (Modern Split) --- */
+.ai-section {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  border-radius: 40px;
+  padding: 80px;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  margin: 50px 0;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.3);
+}
+
+.ai-content {
+  flex: 1;
+}
+
+.ai-content h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 3rem;
+  margin-bottom: 20px;
+  background: linear-gradient(to right, #fff, #94a3b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.ai-features li {
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: #cbd5e1;
+}
+
+.check-icon {
+  background: var(--primary-green);
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+}
+
+.ai-visual {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.ai-visual::after {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: var(--primary-green);
+  filter: blur(80px);
+  opacity: 0.2;
+  z-index: 0;
+  border-radius: 50%;
+}
+
+/* --- 5. NEWS GRID --- */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.news-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+
+.news-card:hover {
+  transform: translateY(-5px);
+}
+
+.news-image {
+  height: 220px;
+  background-size: cover;
+  background-position: center;
+}
+
+.news-body {
+  padding: 25px;
+}
+
+.news-tag {
+  background: #f1f5f9;
+  color: var(--primary-dark);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.news-body h3 {
+  font-family: 'Outfit', sans-serif;
+  margin: 15px 0 10px;
+  font-size: 1.25rem;
+}
+
+.news-link {
+  color: var(--primary-green);
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 15px;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes zoomSlow {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-content h1 { font-size: 2.8rem; }
+  .ai-section { flex-direction: column; padding: 40px; text-align: center; }
+  .ai-features li { justify-content: center; }
+  .navbar-overlay { padding: 20px; }
+  .nav-links { display: none; } /* Simple hide for mobile for now */
+}

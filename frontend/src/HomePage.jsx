@@ -1,0 +1,166 @@
+import React from 'react';
+import './HomePage.css';
+import { FaSolarPanel, FaRobot, FaMapMarkedAlt, FaLeaf, FaArrowRight, FaCheck, FaBolt } from 'react-icons/fa';
+
+const HomePage = ({ onStartApp }) => {
+  return (
+    <div className="home-container">
+      
+      {/* --- NAVIGATION OVERLAY --- */}
+      <nav className="navbar-overlay">
+        <div className="logo-text">SOLIX <span style={{color:'#00c853'}}>.AI</span></div>
+        <div className="nav-links">
+          <a href="#features">Features</a>
+          <a href="#ai-agent">AI Agent</a>
+          <a href="#news">News</a>
+          <button onClick={onStartApp} style={{
+            marginLeft: '30px', background: 'rgba(255,255,255,0.2)', 
+            border: '1px solid rgba(255,255,255,0.4)', color: 'white', 
+            padding: '8px 20px', borderRadius: '30px', cursor: 'pointer', fontWeight: 'bold'
+          }}>
+            Launch App
+          </button>
+        </div>
+      </nav>
+
+      {/* 1️⃣ CINEMATIC HERO SECTION */}
+      <header className="hero-section">
+        <div className="hero-bg"></div>
+        <div className="hero-content">
+          <div className="hero-badge">✨ Sri Lanka's #1 Solar AI</div>
+          <h1>
+            Empowering Smarter <br />
+            <span style={{ color: '#00c853' }}>Solar Decisions.</span>
+          </h1>
+          <p>
+            Harness the power of satellite intelligence and AI to instantly calculate your roof’s potential. 
+            Save money, reduce carbon, and build a sustainable future.
+          </p>
+          <div className="hero-buttons">
+            <button className="btn-glow" onClick={onStartApp}>
+              Try Solix AI Agent <FaArrowRight />
+            </button>
+            <button className="btn-glass" onClick={() => document.getElementById('features').scrollIntoView({ behavior: 'smooth' })}>
+              Learn More
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* 2️⃣ FEATURES (Glass Grid) */}
+      <section id="features" className="section">
+        <div className="section-header">
+          <h2>Why Choose Solix?</h2>
+          <p>We combine NASA climate data with computer vision to give you precision accuracy.</p>
+        </div>
+        
+        <div className="feature-grid">
+          <div className="feature-card">
+            <div className="icon-box"><FaMapMarkedAlt /></div>
+            <h3>Precision Mapping</h3>
+            <p>Pinpoint your exact roof location using our satellite integration to get accurate sunlight hours specific to your district.</p>
+          </div>
+          <div className="feature-card">
+            <div className="icon-box"><FaRobot /></div>
+            <h3>AI Financial Analyst</h3>
+            <p>Our agent calculates ROI, loan payback periods, and net profit instantly based on the latest 2025 CEB tariffs.</p>
+          </div>
+          <div className="feature-card">
+            <div className="icon-box"><FaBolt /></div>
+            <h3>Hybrid Energy Logic</h3>
+            <p>Smart recommendations for Battery Storage systems to keep your home powered during grid failures.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* 3️⃣ AI SHOWCASE (Modern Split) */}
+      <section id="ai-agent" className="section">
+        <div className="ai-section">
+          <div className="ai-content">
+            <h2>Meet the Intelligent Agent</h2>
+            <p style={{ color: '#cbd5e1', marginBottom: '30px', fontSize: '1.1rem' }}>
+              Stop guessing. Let our AI analyze your roof's geometry, local weather patterns, and current financial rates in seconds.
+            </p>
+            <ul className="ai-features" style={{ listStyle: 'none', padding: 0 }}>
+              <li><div className="check-icon"><FaCheck /></div> Instant 20-Year Financial Forecast</li>
+              <li><div className="check-icon"><FaCheck /></div> Visual Panel Placement Analysis</li>
+              <li><div className="check-icon"><FaCheck /></div> Smart Battery Sizing for Night Use</li>
+            </ul>
+            <button className="btn-glow" onClick={onStartApp} style={{ marginTop: '30px' }}>
+              Launch Analysis Tool
+            </button>
+          </div>
+          <div className="ai-visual">
+            <FaSolarPanel size={220} color="#00c853" style={{ position: 'relative', zIndex: 1, filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.5))' }} />
+          </div>
+        </div>
+      </section>
+
+      {/* 4️⃣ NEWS & INSIGHTS */}
+      <section id="news" className="section" style={{ background: '#fff' }}>
+        <div className="section-header">
+          <h2>Solar Insights & News ☀️</h2>
+          <p>Stay ahead with the latest renewable trends in Sri Lanka.</p>
+        </div>
+        
+        <div className="news-grid">
+          {/* Card 1 */}
+          <div className="news-card">
+            <div className="news-image" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1548613053-220e39955722?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')" }}></div>
+            <div className="news-body">
+              <span className="news-tag">Market Update</span>
+              <h3>CEB Tariff Revision 2025</h3>
+              <p style={{ fontSize: '0.9rem', color: '#666', marginTop: '10px' }}>
+                How the new export rates affect your payback period.
+              </p>
+              <a href="#" className="news-link">Read Analysis <FaArrowRight size={12}/></a>
+            </div>
+          </div>
+
+          {/* Card 2 */}
+          <div className="news-card">
+            <div className="news-image" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1611365892117-00ac5ef43c90?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')" }}></div>
+            <div className="news-body">
+              <span className="news-tag">Tech Guide</span>
+              <h3>Hybrid vs Off-Grid?</h3>
+              <p style={{ fontSize: '0.9rem', color: '#666', marginTop: '10px' }}>
+                Choosing the right battery system for power cuts.
+              </p>
+              <a href="#" className="news-link">Read Guide <FaArrowRight size={12}/></a>
+            </div>
+          </div>
+
+          {/* Card 3 */}
+          <div className="news-card">
+            <div className="news-image" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')" }}></div>
+            <div className="news-body">
+              <span className="news-tag">Innovation</span>
+              <h3>Future of Solar in SL</h3>
+              <p style={{ fontSize: '0.9rem', color: '#666', marginTop: '10px' }}>
+                Floating solar parks and what they mean for the grid.
+              </p>
+              <a href="#" className="news-link">Read Article <FaArrowRight size={12}/></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5️⃣ FOOTER */}
+      <footer style={{ background: '#0f172a', color: 'white', padding: '60px 20px', textAlign: 'center' }}>
+        <h2 style={{ fontFamily: 'Outfit', fontSize: '2rem', marginBottom: '20px' }}>SOLIX</h2>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '30px', marginBottom: '40px' }}>
+          <a href="#" style={{ color: '#94a3b8', textDecoration: 'none' }}>Privacy</a>
+          <a href="#" style={{ color: '#94a3b8', textDecoration: 'none' }}>Terms</a>
+          <a href="#" style={{ color: '#94a3b8', textDecoration: 'none' }}>Contact</a>
+        </div>
+        <p style={{ color: '#475569', fontSize: '0.9rem' }}>
+          © 2025 Solix Sri Lanka. Built for a Greener Tomorrow. 🌿
+          <i>Developed by Gropu 14</i>
+        </p>
+      </footer>
+
+    </div>
+  );
+};
+
+export default HomePage;
