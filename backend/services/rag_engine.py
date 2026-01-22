@@ -9,7 +9,7 @@ from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_core.prompts import ChatPromptTemplate
 
 # --- CONFIGURATION ---
-GOOGLE_API_KEY = "AIzaSyD01ZLcgyf9fs_eCcN5YAb2TfyA3eUWB-Q"  # <--- PASTE YOUR KEY HERE (Still needed for the Chat Answer)
+GOOGLE_API_KEY = "AIzaSyCvmrtVYMMaxsaYcqggu_-ScTyUs6SKW1Q"  # <--- PASTE YOUR KEY HERE (Still needed for the Chat Answer)
 DB_PATH = "chroma_db"
 
 class SolarRAG:
