@@ -1,6 +1,6 @@
 .navbar {
   width: 100%;
-  padding: 15px 40px;
+  padding: 16px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -8,13 +8,22 @@
   top: 0;
   left: 0;
   z-index: 1000;
-  border-radius: 0; /* Navbar spans full width, no rounded corners */
+  border-radius: 0;
   border-top: none;
   border-left: none;
   border-right: none;
-  background: rgba(255, 255, 255, 0.1); /* Slightly less opaque for navbar */
-  backdrop-filter: blur(25px);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid var(--glass-border-base);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 12px 20px;
+  }
 }
 
 .navbar-brand {
@@ -24,19 +33,34 @@
 }
 
 .solix-logo {
-  font-size: 1.8rem;
+  font-size: 1.75rem;
   font-weight: 800;
-  color: var(--solar-cyan);
-  letter-spacing: 1px;
+  background: linear-gradient(135deg, var(--solar-cyan) 0%, var(--electric-blue) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
 }
 
 .navbar-tagline {
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   color: var(--text-secondary);
-  opacity: 0.7;
+  opacity: 0.75;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  .navbar-tagline {
+    display: none;
+  }
+  
+  .solix-logo {
+    font-size: 1.5rem;
+  }
 }
 
 .navbar-icons {
@@ -45,13 +69,16 @@
 }
 
 .nav-icon {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   color: var(--text-secondary);
   cursor: pointer;
-  transition: color 0.3s ease, transform 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 8px;
+  border-radius: 8px;
 }
 
 .nav-icon:hover {
   color: var(--solar-cyan);
   transform: scale(1.1);
+  background: rgba(0, 255, 255, 0.1);
 }

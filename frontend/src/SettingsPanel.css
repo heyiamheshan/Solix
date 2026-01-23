@@ -4,27 +4,38 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.4); /* Darker overlay for modal effect */
-  backdrop-filter: blur(5px); /* Light blur on background content */
-  z-index: 1001; /* Above navbar */
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1001;
   display: flex;
-  justify-content: flex-end; /* Opens from right side */
-  transition: background 0.3s ease;
+  justify-content: flex-end;
+  transition: background 0.3s ease, backdrop-filter 0.3s ease;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .settings-panel {
-  width: 350px;
+  width: 380px;
   height: 100%;
-  padding: 30px;
-  background: var(--glass-bg-light); /* Inherits glass card style */
-  border-radius: 0; /* Side panel has no rounded corners on the right */
+  padding: 32px;
+  background: var(--glass-bg-base);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  border-radius: 0;
   border-right: none;
-  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
-  transform: translateX(0); /* Starts open for now */
-  transition: transform 0.3s ease-out;
+  border-left: 1px solid var(--glass-border-base);
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.2);
+  transform: translateX(0);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  overflow-y: auto;
 }
 
 /* When closed, move off screen */

@@ -84,7 +84,7 @@ function App() {
 
         <InputAnalysisPanel onAnalyze={handleAnalyze} loading={loading} />
         
-        {error && <p className="error-message" style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
+        {error && <div className="error-message">{error}</div>}
 
         {result && (
           <div className="results-dashboard">

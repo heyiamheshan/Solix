@@ -24,9 +24,12 @@ const areaDisplay = roof_analysis.total_area_m2 || 0;
     <div className="insights-container">
       
       {/* --- TOP CARD: AI RECOMMENDATION --- */}
-      <div className="result-card main-recommendation">
+      <div className="result-card main-recommendation glass-card">
         <div className="card-header">
-           <h3><FaSolarPanel style={{marginRight: '8px'}}/> AI Recommendation</h3>
+           <h3>
+             <FaSolarPanel className="card-icon" />
+             AI Recommendation
+           </h3>
         </div>
         <div className="card-body">
            <div className="primary-stat">
@@ -34,15 +37,7 @@ const areaDisplay = roof_analysis.total_area_m2 || 0;
              <span className="label">Recommended System Size</span>
            </div>
            
-           <div className="ai-note" style={{
-               backgroundColor: noteBg,
-               color: noteColor,
-               borderLeft: `4px solid ${noteBorder}`,
-               padding: '12px',
-               borderRadius: '4px',
-               marginTop: '15px',
-               fontSize: '0.95rem'
-           }}>
+           <div className={`ai-note ${isWarning ? 'warning' : 'success'}`}>
              <strong>{isWarning ? "⚠️ Analysis Note:" : "✅ Analysis Note:"}</strong> {financial_report.note}
            </div>
         </div>
@@ -52,15 +47,15 @@ const areaDisplay = roof_analysis.total_area_m2 || 0;
       <div className="result-grid">
         
         {/* 1. ROOF USABLE AREA (Fixed) */}
-        <div className="stat-card">
-          <div className="icon-box" style={{background: '#e8f6f3', color: '#1abc9c'}}>
+        <div className="stat-card glass-card">
+          <div className="icon-box icon-teal">
             <FaRulerCombined />
           </div>
           <div className="stat-info">
             <label>Usable Roof Area</label>
             <p className="stat-value">{areaDisplay} m²</p>
             {isEstimated && (
-              <small style={{color: '#d35400', fontWeight: 'bold', fontSize: '0.7rem'}}>
+              <small className="estimated-badge">
                 (Estimated - Low Visibility)
               </small>
             )}
@@ -68,22 +63,22 @@ const areaDisplay = roof_analysis.total_area_m2 || 0;
         </div>
 
         {/* 2. ANNUAL ENERGY OUTPUT (Fixed) */}
-        <div className="stat-card">
-          <div className="icon-box" style={{background: '#eaf2f8', color: '#3498db'}}>
+        <div className="stat-card glass-card">
+          <div className="icon-box icon-blue">
             <FaBolt />
           </div>
           <div className="stat-info">
             <label>Annual Energy Output</label>
             <p className="stat-value">{annualGen.toLocaleString()} kWh</p>
-            <small style={{color: '#7f8c8d', fontSize: '0.7rem'}}>
+            <small className="stat-subtext">
               ({monthlyGen} kWh / month)
             </small>
           </div>
         </div>
 
         {/* 3. MONTHLY SAVINGS */}
-        <div className="stat-card">
-          <div className="icon-box" style={{background: '#eafaf1', color: '#27ae60'}}>
+        <div className="stat-card glass-card">
+          <div className="icon-box icon-green">
             <FaMoneyBillWave />
           </div>
           <div className="stat-info">
@@ -93,8 +88,8 @@ const areaDisplay = roof_analysis.total_area_m2 || 0;
         </div>
 
         {/* 4. PAYBACK PERIOD */}
-        <div className="stat-card">
-          <div className="icon-box" style={{background: '#fef9e7', color: '#f1c40f'}}>
+        <div className="stat-card glass-card">
+          <div className="icon-box icon-yellow">
             <FaClock />
           </div>
           <div className="stat-info">
@@ -106,35 +101,22 @@ const areaDisplay = roof_analysis.total_area_m2 || 0;
       </div>
 
       {/* --- FINANCIAL SUMMARY FOOTER --- */}
-      <div className="financial-summary" style={{
-          marginTop: '25px', 
-          padding: '20px', 
-          background: '#f8f9fa', 
-          borderRadius: '10px',
-          border: '1px solid #eee'
-      }}>
-         <h4 style={{margin: '0 0 15px 0', color: '#2c3e50'}}>💰 Financial Projection</h4>
+      <div className="financial-summary glass-card">
+         <h4>💰 Financial Projection</h4>
          
-         <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '8px'}}>
-            <span style={{color: '#7f8c8d'}}>Total Investment Required:</span>
+         <div className="financial-row">
+            <span>Total Investment Required:</span>
             <strong>LKR {financial_report.total_investment_lkr.toLocaleString()}</strong>
          </div>
          
-         <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '8px'}}>
-            <span style={{color: '#7f8c8d'}}>Est. Bank Loan Installment:</span>
-            <strong style={{color: '#c0392b'}}>- LKR {financial_report.loan_installment.toLocaleString()} / mo</strong>
+         <div className="financial-row">
+            <span>Est. Bank Loan Installment:</span>
+            <strong className="expense">- LKR {financial_report.loan_installment.toLocaleString()} / mo</strong>
          </div>
          
-         <div style={{
-             marginTop: '15px', 
-             paddingTop: '15px', 
-             borderTop: '2px dashed #ddd', 
-             display: 'flex', 
-             justifyContent: 'space-between',
-             fontSize: '1.1rem'
-         }}>
+         <div className="financial-row financial-total">
             <span>Net Monthly Impact:</span>
-            <strong style={{color: financial_report.net_monthly_result > 0 ? '#27ae60' : '#c0392b'}}>
+            <strong className={financial_report.net_monthly_result > 0 ? 'profit' : 'expense'}>
                {financial_report.net_monthly_result > 0 ? "Profit: +" : "Cost: "} 
                LKR {financial_report.net_monthly_result.toLocaleString()}
             </strong>

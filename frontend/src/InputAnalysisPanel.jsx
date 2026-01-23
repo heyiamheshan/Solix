@@ -41,7 +41,7 @@ const InputAnalysisPanel = ({ onAnalyze, loading }) => {
   };
 
   return (
-    <div className="input-panel card">
+    <div className="input-panel glass-card">
       <h3>🚀 Project Setup</h3>
       
       <div className="grid-2">
@@ -53,14 +53,14 @@ const InputAnalysisPanel = ({ onAnalyze, loading }) => {
           </select>
         </div>
 
-        {/* Connection Phase - NEW */}
+        {/* Connection Phase */}
         <div className="form-group">
           <label>Connection Phase</label>
-          <select value={phase} onChange={(e) => setPhase(e.target.value)} style={{border: '1px solid #3498db'}}>
+          <select value={phase} onChange={(e) => setPhase(e.target.value)}>
             <option value="Single">Single Phase (30A)</option>
             <option value="Three">Three Phase (30A/60A)</option>
           </select>
-          <small style={{color:'#666', fontSize:'0.8rem'}}>Single phase limited to 5kW</small>
+          <small>Single phase limited to 5kW</small>
         </div>
       </div>
 
@@ -85,7 +85,7 @@ const InputAnalysisPanel = ({ onAnalyze, loading }) => {
         </div>
       </div>
 
-      <button className="btn-secondary" onClick={handleGetLocation} style={{marginBottom: '15px'}}>
+      <button className="btn-secondary" onClick={handleGetLocation}>
         📍 Use My Location
       </button>
 
@@ -95,7 +95,14 @@ const InputAnalysisPanel = ({ onAnalyze, loading }) => {
       </div>
 
       <button className="btn-primary" onClick={handleSubmit} disabled={loading}>
-        {loading ? "Analyzing..." : "Analyze Project"}
+        {loading ? (
+          <>
+            <span className="loading-spinner"></span>
+            Analyzing...
+          </>
+        ) : (
+          "Analyze Project"
+        )}
       </button>
     </div>
   );

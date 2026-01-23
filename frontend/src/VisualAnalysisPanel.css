@@ -1,9 +1,10 @@
 .visual-analysis-panel {
   width: 100%;
   max-width: 1200px;
-  padding: 35px;
+  padding: 40px;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 0;
+  animation: fadeInUp 0.6s ease-out 0.2s both;
 }
 
 .visual-analysis-panel .panel-title {
@@ -22,50 +23,80 @@
 
 .image-comparison-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
   align-items: flex-start;
+  margin-top: 24px;
+}
+
+@media (min-width: 768px) {
+  .image-comparison-grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .image-card {
-  background: rgba(255, 255, 255, 0.05); /* Very subtle background for image cards */
+  background: rgba(255, 255, 255, 0.05);
   border-radius: var(--card-border-radius);
-  padding: 20px;
-  border: 1px solid var(--glass-border);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  border: 1px solid var(--glass-border-base);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  height: 100%; /* Ensure cards are same height */
+  height: 100%;
+  transition: all 0.3s ease;
+}
+
+.image-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border-color: rgba(0, 255, 255, 0.3);
 }
 
 .image-card h3 {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 600;
   color: var(--text-primary);
   margin-top: 0;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
+  letter-spacing: 0.01em;
 }
 
 .image-card img {
   width: 100%;
   height: auto;
-  border-radius: 10px;
+  border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  object-fit: contain; /* Ensure image fits without cropping */
-  max-height: 400px; /* Limit image height */
-  background-color: rgba(0,0,0,0.2); /* Placeholder background for images */
+  object-fit: contain;
+  max-height: 400px;
+  background-color: rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.image-card img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  border-color: rgba(0, 255, 255, 0.3);
 }
 
 .no-image {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 200px; /* Placeholder height */
+  height: 200px;
   background-color: rgba(255, 255, 255, 0.03);
-  border-radius: 10px;
+  border-radius: 12px;
   color: var(--text-secondary);
   opacity: 0.6;
   font-style: italic;
+  border: 1px dashed var(--glass-border-base);
+  transition: all 0.3s ease;
+}
+
+.image-card:hover .no-image {
+  opacity: 0.8;
+  border-color: rgba(0, 255, 255, 0.2);
 }
 
 /* Smooth fade-in animation for results */

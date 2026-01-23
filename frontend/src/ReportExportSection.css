@@ -1,9 +1,9 @@
 .report-export-section {
   width: 100%;
-  max-width: 500px;
-  padding: 35px;
+  max-width: 600px;
+  padding: 40px;
   text-align: center;
-  animation: fadeIn 1s ease-out;
+  animation: fadeInUp 0.6s ease-out 0.4s both;
 }
 
 @keyframes fadeIn {
@@ -51,35 +51,44 @@
 .report-content-preview li {
   font-size: 1rem;
   color: var(--text-secondary);
-  margin-bottom: 10px;
-  padding-left: 25px;
+  margin-bottom: 12px;
+  padding-left: 28px;
   position: relative;
+  line-height: 1.6;
+  transition: color 0.2s ease;
+}
+
+.report-content-preview li:hover {
+  color: var(--text-primary);
 }
 
 .report-content-preview li::before {
-  content: '•';
+  content: '✓';
   color: var(--solar-cyan);
   position: absolute;
   left: 0;
-  font-size: 1.2rem;
-  line-height: 1;
+  font-size: 1rem;
+  line-height: 1.4;
+  font-weight: 700;
 }
 
 .export-button {
-  background: linear-gradient(45deg, var(--electric-blue) 0%, var(--solar-cyan) 100%);
+  background: linear-gradient(135deg, var(--electric-blue) 0%, var(--solar-cyan) 100%);
   color: var(--white);
   border: none;
-  border-radius: var(--button-border-radius); /* Rounded corners */
-  padding: 18px 30px;
+  border-radius: 12px;
+  padding: 18px 32px;
   font-size: 1.2rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 14px rgba(0, 255, 255, 0.25);
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   transform: translateY(0);
+  width: 100%;
+  justify-content: center;
 }
 
 .export-button:hover {
