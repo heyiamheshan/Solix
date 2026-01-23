@@ -2,6 +2,7 @@ import React from 'react';
 import './HomePage.css';
 import { FaSolarPanel, FaRobot, FaMapMarkedAlt, FaCheck, FaArrowRight, FaBolt } from 'react-icons/fa';
 
+
 const HomePage = ({ onStartApp }) => {
   return (
     <div className="home-container">
@@ -104,19 +105,19 @@ const HomePage = ({ onStartApp }) => {
       {/* 4️⃣ NEWS & INSIGHTS (Dark Mode Fixed) */}
       <section id="news" className="section">
         <div className="section-header">
-          <h2>Solar Insights & News ☀️</h2>
+          <h2>Solar Insights & News </h2>
           <p>Stay ahead with the latest renewable trends in Sri Lanka.</p>
         </div>
         
         <div className="news-grid">
           {/* Card 1 */}
           <div className="news-card">
-            <div className="news-image" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1548613053-220e39955722?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')" }}></div>
+            <div className="news-image"  style={{ backgroundImage: "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEdcT51ca1pFUQy2wVLkeRy37_tPZaDJGaPw&s')" }}></div>
             <div className="news-body">
               <span className="news-tag" style={{background:'#00e676', color:'black', padding:'4px 8px', borderRadius:'4px', fontSize:'0.7rem', fontWeight:'bold'}}>Market Update</span>
               <h3>CEB Tariff Revision 2025</h3>
               <p>How the new export rates affect your payback period.</p>
-              <a href="#" className="news-link">Read Analysis <FaArrowRight size={12}/></a>
+              <a href="https://www.dropbox.com/scl/fi/7lv2ewhe8clxj70bq7bi0/Advertisement-Solar-PV-with-BESSTariff-2025-Rev-3.pdf?rlkey=tihkmp9bb8rfeg0qgzfc9gbel&e=1&st=k6m0j21j&dl=1" className="news-link">Read PDF <FaArrowRight size={12}/></a>
             </div>
           </div>
 
@@ -127,7 +128,7 @@ const HomePage = ({ onStartApp }) => {
               <span className="news-tag" style={{background:'#00e676', color:'black', padding:'4px 8px', borderRadius:'4px', fontSize:'0.7rem', fontWeight:'bold'}}>Tech Guide</span>
               <h3>Hybrid vs Off-Grid?</h3>
               <p>Choosing the right battery system for power cuts.</p>
-              <a href="#" className="news-link">Read Guide <FaArrowRight size={12}/></a>
+              <a href="https://eximiuspe.com/off-grid-vs-grid-tied-solar-systems-in-sri-lanka-which-one-is-right-for-you/" className="news-link">Read Guide <FaArrowRight size={12}/></a>
             </div>
           </div>
 
@@ -145,16 +146,32 @@ const HomePage = ({ onStartApp }) => {
       </section>
 
       {/* 5️⃣ FOOTER */}
-      <footer style={{ borderTop: '1px solid #1e293b', padding: '60px 20px', textAlign: 'center', color: '#94a3b8' }}>
+      
+{/* 5️⃣ FOOTER */}
+<footer style={{ borderTop: '1px solid #1e293b', padding: '60px 20px', textAlign: 'center', color: '#94a3b8' }}>
         <h2 style={{ fontFamily: 'Outfit', fontSize: '2rem', color: 'white', marginBottom: '20px' }}>SOLIX</h2>
+        
         <div style={{ display: 'flex', justifyContent: 'center', gap: '30px', marginBottom: '40px' }}>
-          <a href="#" style={{ color: '#94a3b8', textDecoration: 'none' }}>Privacy</a>
-          <a href="#" style={{ color: '#94a3b8', textDecoration: 'none' }}>Terms</a>
-          <a href="#" style={{ color: '#94a3b8', textDecoration: 'none' }}>Contact</a>
+          {/* Privacy and Terms Links can remain dead links or be removed if unused */}
+          
+          {/* CONTACT LINK WITH POPUP */}
+          <a 
+            href="#" 
+            onClick={(e) => {
+              e.preventDefault(); // Prevents the page from scrolling to top
+              alert("Mail - pramudithaheshan8@gmail.com\nContact no - 0710691571");
+            }}
+            style={{ color: '#94a3b8', textDecoration: 'none', cursor: 'pointer' }}
+          >
+            Contact
+          </a>
         </div>
-        <p style={{ fontSize: '0.9rem' }}>
-          © 2025 Solix Sri Lanka. Built for a Sustainable Future. 🌿
+
+        <p style={{ fontSize: '0.9rem', marginBottom: '10px' }}>
+          © 2025 Solix Sri Lanka | Built for a Sustainable Future.
         </p>
+        
+        <i style={{ fontSize: '0.8rem', opacity: 0.7 }}>Developed By Group 14</i>
       </footer>
 
     </div>

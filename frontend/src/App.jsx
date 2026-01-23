@@ -88,12 +88,14 @@ function App() {
       {currentPage === 'app' && (
         <>
           <Navbar onSettingsClick={() => setIsSettingsOpen(true)} />
+          <Navbar onHomeClick={() => setCurrentPage('home')} />
           
           <SettingsPanel 
             isOpen={isSettingsOpen} 
             onClose={() => setIsSettingsOpen(false)} 
             theme={theme} 
             onThemeChange={(newTheme) => setTheme(newTheme)}
+            
           />
 
           <div className="container">

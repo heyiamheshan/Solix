@@ -46,7 +46,7 @@ const InsightsResultsSection = ({ result }) => {
           <div className="stat-data">
             <label>Usable Roof Area</label>
             <div className="value">{areaDisplay} m²</div>
-            {isEstimated && <small className="text-warning">⚠️ {estimationReason}</small>}
+            {isEstimated && <small className="text-warning"> {estimationReason}</small>}
           </div>
         </div>
 
@@ -82,7 +82,7 @@ const InsightsResultsSection = ({ result }) => {
 
       {/* --- FINANCIAL FOOTER --- */}
       <div className="financial-footer">
-         <h4>💰 Financial Projection</h4>
+         <h4> Financial Projection</h4>
          
          <div className="fin-row">
             <span>Total Investment:</span>

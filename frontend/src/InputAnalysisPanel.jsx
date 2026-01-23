@@ -59,7 +59,7 @@ const InputAnalysisPanel = ({ onAnalyze, loading }) => {
   return (
     <div className="input-panel card">
       <h3 style={{fontFamily:'Outfit', fontSize:'1.5rem', marginBottom:'20px', color:'white'}}>
-        🚀 Project Configuration
+      Setup Your Solar Profile
       </h3>
       
       {/* ERROR ALERT */}

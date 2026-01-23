@@ -44,8 +44,8 @@ const VisualAnalysisPanel = ({ originalImage, annotatedImage, detectionCount }) 
 
       {/* --- SECTION 2: NATIONAL CONTEXT (SolarGIS) --- */}
       <div className="solargis-section" style={{ marginTop: '25px', paddingTop: '20px', borderTop: '1px solid #eee' }}>
-        <h3 style={{ fontSize: '1.1rem', marginBottom: '10px', display:'flex', alignItems:'center', gap:'10px' }}>
-          🇱🇰 Sri Lanka Solar Potential Zone
+        <h3 style={{ fontSize: '1.1rem', marginBottom: '10px', display:'flex', alignItems:'center',justifyContent: 'center', gap:'10px' }}>
+           Sri Lanka Solar Potential Zone
         </h3>
         
         <div className="solargis-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

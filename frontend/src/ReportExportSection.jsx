@@ -6,6 +6,7 @@ const ReportExportSection = ({ isAnalysisComplete = false, onExportReport }) => 
   const buttonClassName = isAnalysisComplete ? 'export-button' : 'export-button disabled';
 
   return (
+    
     <div className="report-export-section glass-card">
       <div className="header-area">
         <FaFileInvoice className="header-icon" />

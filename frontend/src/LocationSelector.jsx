@@ -99,8 +99,8 @@ const LocationSelector = ({ onLocationSelect, initialLat, initialLon }) => {
 
     return (
         <div className="location-selector" style={{ marginBottom: '20px' }}>
-            <label style={{display:'block', marginBottom:'8px', fontWeight:'bold', color: '#2c3e50'}}>
-                📍 Step 1: Pinpoint Your Roof
+            <label style={{display:'block', marginBottom:'8px', fontWeight:'bold', color: '#404040'}}>
+                 
             </label>
             
             {/* CONTROLS CONTAINER */}

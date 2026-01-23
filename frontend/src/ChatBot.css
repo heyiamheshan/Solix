@@ -176,3 +176,33 @@
     /* ... existing styles ... */
     z-index: 9999 !important; /* Forces it to sit on top of the Home Page */
   }
+  /* src/ChatBot.css */
+
+.chatbot-toggle {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 70px;   /* Increased from 50px */
+    height: 70px;  /* Increased from 50px */
+    background: var(--neon-green, #00e676); /* Uses your neon theme */
+    border: none;
+    border-radius: 50%;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 230, 118, 0.4); /* Enhanced glow */
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 10000; /* Ensures it stays on top of everything */
+  }
+  
+  .chatbot-toggle png {
+    font-size: 60px; /* Increased icon size */
+  }
+  
+  .chatbot-toggle:hover {
+    transform: scale(3); /* Slightly larger zoom effect on hover */
+    box-shadow: 0 6px 25px rgba(0, 230, 118, 0.6);
+  }
+  
