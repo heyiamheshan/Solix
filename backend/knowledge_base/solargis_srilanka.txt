@@ -1,0 +1,20 @@
+Source: SolarGIS / World Bank Group - Global Solar Atlas (Sri Lanka)
+
+Summary of Solar Potential in Sri Lanka:
+Sri Lanka has excellent solar potential due to its location near the equator.
+1. High Potential Zones:
+   - The Northern Province (Jaffna, Kilinochchi, Mannar) has the highest solar irradiance, often exceeding 5.5 kWh/m²/day.
+   - The North Central and Eastern provinces (Anuradhapura, Trincomalee, Batticaloa) are also prime locations for solar energy.
+   - Hambantota in the South is another high-potential zone.
+
+2. Moderate Potential Zones:
+   - The Western Province (Colombo, Gampaha) receives moderate but consistent sunlight (approx 4.5 - 5.0 kWh/m²/day).
+   - This is sufficient for profitable rooftop solar systems.
+
+3. Lower Potential Zones:
+   - The Central Highlands (Nuwara Eliya, Kandy) have lower solar potential due to frequent cloud cover and mist.
+   - Irradiance here can drop below 4.0 kWh/m²/day in some months.
+
+Usage in SOLIX System:
+- SOLIX uses this SolarGIS map for general zoning.
+- For precise financial calculations, SOLIX uses the NASA POWER API to get the specific 20-year history of sunlight for the user's exact roof coordinates.

@@ -1,0 +1,208 @@
+/* --- THE SPEECH BUBBLE --- */
+.chat-tooltip-bubble {
+    background-color: #0f172a; /* Dark Navy/Black */
+    color: white;
+    padding: 16px 20px;
+    border-radius: 20px;
+    /* This creates the speech bubble shape */
+    border-bottom-left-radius: 4px; 
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    
+    max-width: 280px;
+    position: relative;
+    cursor: pointer;
+    animation: floatIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* The little "Tail" pointing down to the robot */
+.chat-tooltip-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -8px; /* Push it below the bubble */
+    left: 20px;   /* Align with the curve */
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #0f172a; /* Matches background color */
+}
+
+/* Text Styling */
+.bubble-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+}
+
+.bubble-title {
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+.bubble-subtitle {
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+/* Icon Styling */
+.icon-glow {
+    filter: drop-shadow(0 0 8px rgba(253, 224, 71, 0.5)); /* Yellow Glow */
+}
+
+.bubble-close {
+    background: transparent;
+    border: none;
+    color: #64748b;
+    margin-left: auto;
+    cursor: pointer;
+    padding: 0;
+}
+.bubble-close:hover { color: white; }
+
+
+/* --- THE FLOATING AVATAR BUTTON --- */
+.floating-avatar-btn {
+    background: transparent; /* INVISIBLE BACKGROUND */
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    
+    /* Size of the robot */
+    width: 70px; 
+    height: 80px; 
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.floating-avatar-btn:hover {
+    transform: scale(1.05) translateY(-2px);
+}
+
+.floating-robot-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Keeps the robot shape */
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3)); /* Adds shadow to the ROBOT, not the box */
+}
+
+/* Fallback & Close Button Styling */
+.close-circle-btn {
+    width: 50px;
+    height: 50px;
+    background-color: #2563eb;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.fallback-avatar {
+    display: none;
+    width: 56px; 
+    height: 56px;
+    background-color: #2563eb;
+    border-radius: 50%;
+    align-items: center; 
+    justify-content: center;
+    color: white;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes floatIn {
+    from { opacity: 0; transform: translateY(10px) scale(0.9); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Chat Window (Copied from before to ensure it stays styled) */
+.chat-window {
+    width: 350px;
+    height: 500px;
+    background-color: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 16px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.chat-header {
+    padding: 16px;
+    background: linear-gradient(to right, #0d9488, #2563eb);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    background-color: rgba(15, 23, 42, 0.95);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.message-bubble {
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    max-width: 85%;
+    line-height: 1.4;
+}
+.user-bubble { background-color: #2563eb; color: white; border-bottom-right-radius: 2px; }
+.bot-bubble { background-color: #334155; color: #f1f5f9; border-bottom-left-radius: 2px; }
+.chat-input-area { padding: 12px; background-color: #1e293b; border-top: 1px solid #334155; }
+.chat-input-field {
+    width: 100%;
+    background-color: #0f172a;
+    border: 1px solid #475569;
+    border-radius: 9999px;
+    padding: 8px 40px 8px 16px;
+    color: white;
+    outline: none;
+}
+.chat-send-btn { position: absolute; right: 10px; color: #2dd4bf; background: none; border: none; cursor: pointer; }
+
+/* src/ChatBot.css */
+.chatbot-container {
+    /* ... existing styles ... */
+    z-index: 9999 !important; /* Forces it to sit on top of the Home Page */
+  }
+  /* src/ChatBot.css */
+
+.chatbot-toggle {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 70px;   /* Increased from 50px */
+    height: 70px;  /* Increased from 50px */
+    background: var(--neon-green, #00e676); /* Uses your neon theme */
+    border: none;
+    border-radius: 50%;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 230, 118, 0.4); /* Enhanced glow */
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 10000; /* Ensures it stays on top of everything */
+  }
+  
+  .chatbot-toggle png {
+    font-size: 60px; /* Increased icon size */
+  }
+  
+  .chatbot-toggle:hover {
+    transform: scale(3); /* Slightly larger zoom effect on hover */
+    box-shadow: 0 6px 25px rgba(0, 230, 118, 0.6);
+  }
+  
